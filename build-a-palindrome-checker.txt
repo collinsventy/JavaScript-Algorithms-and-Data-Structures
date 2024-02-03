@@ -1,0 +1,208 @@
+** start of undefined **
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build a Palindrome Checker</title>
+
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- You can add additional meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    <!-- Your HTML content goes here -->
+  <main>
+    <h1>Is it a Palindrome?</h1>
+      <div class="container">
+        <form id="enter-in-text">
+          <!--made form match label and input -->
+          <label for="text-input-header">Enter in text to check for a palindrome: </label>
+          <input id="text-input"></input>
+          <div>
+            <button id="check-btn">Check</button>
+          </div>
+          <div id="result">
+            <div class="results-div" id="result">
+  <p class="user-input">
+    <strong></strong> is a palindrome.</p>
+</div>
+          </div>  
+        <form>  
+      </div>  
+  </main>  
+    <!-- Link to your JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+
+
+** end of undefined **
+
+** start of undefined **
+
+
+
+** end of undefined **
+
+** start of undefined **
+
+//get references for HTML references
+const textInput = document.getElementById('text-input');
+const checkBtn = document.getElementById('check-btn');
+const result = document.getElementById('result');
+//isError = false;
+
+const checkForPalindrome = input => {
+  const originalInput = input; //store for later 
+  if (input=== "") {
+    alert("Please input a value");
+    return;
+   }
+
+// Remove the previous result
+  result.replaceChildren(); 
+
+const lowerCaseStr = input.replace(/[^A-Za-z0-9]/gi, '').toLowerCase();
+  let resultMsg = `<strong>${originalInput}</strong> ${
+lowerCaseStr === [...lowerCaseStr].reverse().join('') ? 'is' : 'is not'} a palindrome.`;
+
+const pTag = document.createElement('p');
+  pTag.className = 'user-input';
+  pTag.innerHTML = resultMsg;
+  result.appendChild(pTag);
+
+    // Show the result.
+  result.classList.remove('hidden');
+};
+
+checkBtn.addEventListener('click', () => {
+  checkForPalindrome(textInput.value);
+  textInput.value = "";
+})
+
+//--------------
+//function to remove special characters
+//function cleanInputString(str) {
+  //const regex = /[+-\s]/g;
+  //return str.replace(regex, '')
+//}
+
+//function to check for Palindrome
+//function getAnswersFromInputs(input) {
+  //const originalInput = input;
+
+   
+
+  
+//  let newString = "";
+//for (let i = originalInput.length-1; i >= 0; i--) {
+  //const textInput = cleanInputString(input[i].value);
+//  newString += originalInput[i];
+//for (var i = str.length - 1; i >= 0; i--) { 
+  //      newString += str[i];
+//}
+
+
+
+
+ 
+//const lowerCaseStr = originalInput.replace(/[^A-Za-z0-9]/gi, '').toLowerCase();
+ // let resultMsg = `<strong>${originalInput}</strong> ${
+  //  lowerCaseStr === [...lowerCaseStr].reverse().join('') ? 'is' : 'is not'
+ // } a palindrome.`;
+
+//if (newString === textInput.value) {
+  //console.log(`${textInput.value} is a palindrome`);
+  
+//}
+
+
+
+
+  
+
+
+
+//function checkForPalindrome(input) {
+ // const originalInput = input;  
+ 
+//if error is found, display alert. wouldn't this have to be first?
+
+
+
+//Event listener for button click
+//checkBtn.addEventListener("click", function() {
+//Get the input value and clean it?
+//const inputValue = cleanInputString(textInput.value);  
+ // getAnswersFromInputs(inputValue);
+
+//});
+//}
+//Call the function to check for palindrome, (provided bychat)
+//checkforPalindrome(inputValue)  
+
+
+// Event listener for the button click
+//checkBtn.addEventListener("click", function() {
+  // Get the input value and clean it
+  //const inputValue = cleanInputString(textInput.value);
+
+  // Call the function to check for palindrome
+  //checkForPalindrome(inputValue);
+//});
+//------
+//const checkForPalindrome = input => {
+  //const originalInput = input; // Store for later output
+//const checkForPalindrome = input => {
+  //const originalInput = input;
+
+
+
+//try to get alert to work here if no answer, is this where the rest of the calculations go then to check through it?
+//function getAnswersFromInputs(list) {
+  //let str = "";
+
+//for (let i = 0; i < list.length; i++) {
+  //const textInput = cleanInputString(list[i].value);
+  
+ // if (textInput === "") {
+   // alert("Please input a value");
+   // return;
+  //}
+
+//}
+//}
+
+//clicking button starts the checking process
+//checkBtn.addEventListener("click", function() {
+  //getAnswersFromInputs([textInput]);
+//}
+//)
+//};
+//--
+// Remove the previous result
+//  resultDiv.replaceChildren();
+
+//  const lowerCaseStr = input.replace(/[^A-Za-z0-9]/gi, '').toLowerCase();
+//  let resultMsg = `<strong>${originalInput}</strong> ${
+ //   lowerCaseStr === [...lowerCaseStr].reverse().join('') ? 'is' : 'is not'
+//  } a palindrome.`;
+
+ // const pTag = document.createElement('p');
+ // pTag.className = 'user-input';
+ // pTag.innerHTML = resultMsg;
+//  resultDiv.appendChild(pTag);
+
+  // Show the result.
+//  resultDiv.classList.remove('hidden');
+//};
+
+
+
+** end of undefined **
+
