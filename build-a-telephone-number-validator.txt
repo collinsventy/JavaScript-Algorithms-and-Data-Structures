@@ -1,0 +1,126 @@
+** start of undefined **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Build a Telephone Number Validator</title>
+  <link rel="stylesheet" href="styles.css">    
+  </head>  
+  <body>
+    <header class="main-text">
+      <h1 class="title">Telephone Number Validator</h1>
+      <p class="description">Enter a Phone Number:
+      </p>
+    </header>
+    <input type="text" id="user-input"></input>
+    <button id="check-btn">Check</button>
+    <button id="clear-btn">Clear</button>
+    <div id="results-div"></div>
+    <script src="script.js"></script>
+  </body>  
+</html>
+
+** end of undefined **
+
+** start of undefined **
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Header */
+.main-text {
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Input and Buttons */
+input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#results-div {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+** end of undefined **
+
+** start of undefined **
+
+const userInput = document.getElementById("user-input");
+const checkBtn = document.getElementById("check-btn");
+const clearBtn = document.getElementById("clear-btn");
+const resultsDiv = document.getElementById("results-div");
+
+const checkValidNumber = input => {
+const pattern = 
+/^1 \d{3}-\d{3}-\d{4}$|^1 \(\d{3}\) \d{3}-\d{4}$|^1\(\d{3}\)\d{3}-\d{4}$|^1 \d{3} \d{3} \d{4}$|^\d{10}$|^\d{3}-\d{3}-\d{4}$|^\(\d{3}\)\d{3}-\d{4}$/;
+
+  if (!input) {
+    alert("Please provide a phone number");
+  }  
+  else if (!pattern.test(input)) {
+    resultsDiv.textContent = "Invalid US number: " + input;
+    
+  }
+  else {
+    resultsDiv.textContent = "Valid US number: " + input;
+  }
+}; 
+
+checkBtn.addEventListener('click', () => {
+  checkValidNumber(userInput.value);
+  userInput.value = '';
+});
+
+clearBtn.addEventListener('click', () => {
+  userInput.value = '';
+  resultsDiv.textContent = '';
+});
+
+
+
+** end of undefined **
+
