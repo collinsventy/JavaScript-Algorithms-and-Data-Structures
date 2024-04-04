@@ -1,0 +1,193 @@
+** start of undefined **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build a Cash Register</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+<body>
+  <main>
+    <input id="cash" type="number">
+    <button id="purchase-btn">Purchase</button>
+    <div id="change-due"></div>
+    
+  </main>  
+  <script src="script.js"></script>
+</body>
+</html>  
+
+** end of undefined **
+
+** start of undefined **
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+input[type="number"], button {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+input[type="number"] {
+  width: 200px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#change-due {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+** end of undefined **
+
+** start of undefined **
+
+//intro for connecting from HTML
+const cash = document.getElementById("cash");
+const changeDue = document.getElementById("change-due");
+const purchaseBtn = document.getElementById("purchase-btn");
+
+//price of the item
+let price = 19.5;
+
+//Cash-in-Drawer (cid)
+//let cid = [
+//  ["PENNY", 1.01],
+//  ["NICKEL", 2.05],
+//  ["DIME", 3.1],
+//  ["QUARTER", 4.25],
+//  ["ONE", 90],
+//  ["FIVE", 55],
+//  ["TEN", 20],
+//  ["TWENTY", 60],
+//  ["ONE HUNDRED", 100],
+//];
+
+//Last cid test
+let cid = [
+  ["PENNY", 0.5],      ["NICKEL", 0],
+  ["DIME", 0], 
+  ["QUARTER", 0], 
+  ["ONE", 0], 
+  ["FIVE", 0], 
+  ["TEN", 0], 
+  ["TWENTY", 0], 
+  ["ONE HUNDRED", 0]
+  ];
+
+// Function to check cash register and update change due
+function checkCashRegister(cashValue, price) {
+  
+//Currency unit?
+let currencyUnit = {
+   "PENNY": .01,
+  "NICKEL": .05,
+  "DIME": .1,
+  "QUARTER": .25,
+  "ONE": 1,
+  "FIVE": 5,
+  "TEN": 10,
+  "TWENTY": 20,
+  "ONE HUNDRED": 100,
+};
+
+//originally under function checkCashRegister
+ let change = cashValue - price;
+ let totalCid = cid.reduce((sum, element) => sum + element[1],0);
+ 
+if(cashValue < price) {
+  alert("Customer does not have enough money to purchase the item");
+  return {status: "INSUFFICIENT_FUNDS", change: []};
+} else if (cashValue - price === 0) {
+  changeDue.textContent = "No change due - customer paid with exact cash";}
+//  alert("No change due - customer paid with exact cash");
+//}
+else if (cashValue === price) {
+  return {status: "CLOSED", change: []}
+} else {
+let changeArray = [];
+//loop to go through cid
+for (let i = cid.length -1; i >= 0; i--) {
+  let currencyUnitName = cid[i][0];
+  let currencyUnitValue = currencyUnit[currencyUnitName];
+ // let currencyUnitAmount = Number((cid[i][1] / currencyUnitValue).toFixed(0)); 
+  let currencyUnitsToReturn = 0;
+
+  while (change >= currencyUnitValue && cid[i][1] > 0) {
+    change -= currencyUnitValue;
+    change = Number(change.toFixed(2));
+    cid[i][1]-= currencyUnitValue;
+    currencyUnitsToReturn++;
+  }
+  if (currencyUnitsToReturn > 0){
+    changeArray.push([currencyUnitName, currencyUnitsToReturn * currencyUnitValue]);
+  }
+}
+  if (change > 0) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  } else if (totalCid === cashValue - price) {
+    return {status: "CLOSED", change: changeArray };
+  } else {
+    return {status: "OPEN", change: changeArray};
+  }
+}
+}
+ 
+
+//Function for button click, + vs parsefloat? cashInput.value vs cash.value
+purchaseBtn.addEventListener("click", function() {
+  const cashValue = parseFloat(cash.value);
+
+// Call the function to check cash register and update change due
+  const result = checkCashRegister(cashValue, price);
+  
+  // Update the changeDue element based on the result
+  if (result.status === "INSUFFICIENT_FUNDS") {
+    changeDue.textContent = "Status: INSUFFICIENT_FUNDS";
+  } else if (result.status === "CLOSED") {
+    let formattedChange = result.change.map(item => `${item[0]}: $${item[1]}`).join(', ');
+    changeDue.textContent = `Status: CLOSED ${formattedChange}`;
+  } else {
+    let formattedChange = result.change.map(item => `${item[0]}: $${item[1]}`).join(', ');
+    changeDue.textContent = `Status: OPEN ${formattedChange}`;
+}
+// Call the function to check cash register and update change due
+});
+//------
+// if (change > 0 || totalCid < cashValue - price) {
+//    return {status: "INSUFFICIENT_FUNDS", change: []};
+//"No change due - customer paid with exact cash"
+
+// let result = {status: "OPEN", change: changeArray};
+//  let formattedChange = result.change.map(item => `${item[0]}: $${item[1]}`).join(' ');
+//   { ...result, change: `Status: OPEN ${formattedChange}` };
+//}
+
+** end of undefined **
+
