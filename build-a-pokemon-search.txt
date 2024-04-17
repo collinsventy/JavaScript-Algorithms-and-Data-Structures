@@ -1,0 +1,279 @@
+** start of undefined **
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build a Pokémon Search App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+  <h1>Pokémon Search App</h1>
+  <div class="container">
+    <form role="search" id="search-form">
+      <label for="search-input">Search for Pokémon via Name or ID#</label>
+      <input id="search-input" type="text" name="pokemon" required></input>
+      <button id="search-button">Search</button>
+    </form>  
+  <div class="output">
+    <div class="top-container">
+      <div class="name-and-id">
+        <span id="pokemon-name"></span>
+        <span id="pokemon-id"></span>
+      </div>
+      <div class="size">
+        <span id="weight"></span>
+        <span id="height"></span>
+      </div>
+      <div id="sprite-container" class="sprite-container"></div>
+      <div id="types"></div>
+    <div class="bottom-container">
+      <table>
+        <tr>
+          <th>Pokémon Base</th>
+          <th>Pokémon Stats</th>
+        </tr>  
+        <tr>
+          <td>HP: </td>
+          <td id="hp"></td>
+        </tr>
+        <tr>
+          <td>Attack: </td>
+          <td id="attack"></td>
+        <tr>
+          <td>Defense: </td>
+          <td id="defense"></td>
+        </tr>  
+        <tr>
+          <td>Special Attack: </td>
+          <td id="special-attack"></td>
+        </tr> 
+        <tr>
+          <td>Special Defense: </td>
+          <td id="special-defense"></td>
+        </tr>    
+        <tr>
+          <td>Speed: </td>
+          <td id="speed" class="speed"></td>
+        </tr>
+      </table>        
+  </div>  
+  
+ 
+<div id="pokemon-container">
+  <!-- display container -->
+  </div>
+  <script src="script.js"></script>
+  </main>
+</body>
+</html>
+
+
+
+** end of undefined **
+
+** start of undefined **
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+form {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 8px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.output {
+  margin-top: 20px;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.name-and-id,
+.size {
+  flex-basis: 45%;
+}
+
+.sprite-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#types {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.bottom-container {
+  margin-top: 20px;
+}
+
+** end of undefined **
+
+** start of undefined **
+
+// Define global variables
+document.addEventListener('DOMContentLoaded', () => {
+  const searchButton = document.getElementById('search-button');
+  const searchInput = document.getElementById('search-input');
+
+// Define function to get Pokemon URL
+const getPokemonUrl = (input) => {
+  const baseUrl = 'https://pokeapi-proxy.freecodecamp.rocks/api/pokemon/';
+  
+  // Check if the input is a number (ID) or a string (name)
+  if (!isNaN(input)) {
+    return baseUrl + input; // If it's a number, return the URL with the ID
+  } else {
+    return baseUrl + input.toLowerCase(); // If it's a string, return the URL with the name
+  }
+};
+
+
+//const pokemonID = document.getElementById('pokemon-id');
+//const pokemonName = document.getElementById('pokemon-name');
+//const spriteContainer = document.getElementById('sprite-container');
+//const types = document.getElementById('types');
+//const height = document.getElementById('height');
+//const weight = document.getElementById('weight');
+//const hp = document.getElementById('hp');
+//const attack = document.getElementById('attack');
+//const defense = document.getElementById('defense');
+//const specialAttack = document.getElementById('special-attack');
+//const specialDefense = document.getElementById('special-defense');
+//const speed = document.getElementById('speed');
+//const searchForm = document.getElementById('search-form');
+
+
+// Remove the declaration of the 'input' variable here
+
+
+
+// Function to display Pokemon details
+const displayPokemon = ({ name, id, weight, height, stats, sprites, types }) => {
+ 
+  // Populate information in the HTML elements
+  document.getElementById('pokemon-name').textContent = name.toUpperCase();
+  document.getElementById('pokemon-id').textContent = `#${id}`;
+  document.getElementById('weight').textContent = `Weight: ${weight}`;
+  document.getElementById('height').textContent = `Height: ${height}`;
+  document.getElementById('hp').textContent = `${stats.find(stat => stat.stat.name === 'hp').base_stat}`;
+  document.getElementById('attack').textContent = `${stats.find(stat => stat.stat.name === 'attack').base_stat}`;
+  document.getElementById('defense').textContent = `${stats.find(stat => stat.stat.name === 'defense').base_stat}`;
+  document.getElementById('special-attack').textContent = `${stats.find(stat => stat.stat.name === 'special-attack').base_stat}`;
+  document.getElementById('special-defense').textContent = `${stats.find(stat => stat.stat.name === 'special-defense').base_stat}`;
+  document.getElementById('speed').textContent = `${stats.find(stat => stat.stat.name === 'speed').base_stat}`;
+
+
+    // Clear the content of the types element
+    const typesElement = document.getElementById('types');
+    typesElement.innerHTML = '';
+  
+    // Iterate over the types and create a span element for each
+    types.forEach(({ type }) => {
+      const typeSpan = document.createElement('span');
+      typeSpan.textContent = type.name.toUpperCase();
+      typesElement.appendChild(typeSpan);
+    });
+
+  const spriteImg = document.createElement('img');
+  spriteImg.id = 'sprite';
+  spriteImg.src = sprites.front_default;
+  const spriteContainer = document.getElementById('sprite-container');
+  spriteContainer.innerHTML = '';
+  spriteContainer.appendChild(spriteImg);
+
+  };
+
+// Event listener for search button click
+searchButton.addEventListener('click', () => {
+  const searchTerm = searchInput.value.trim(); // Trim any leading/trailing spaces
+  
+  // Check if the search input is a valid number
+  if ( searchTerm !== '') {
+    // Fetch data for the pokemon by its ID
+    fetch(getPokemonUrl(searchTerm))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Pokémon not found');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Process fetched data and display Pokemon details
+        displayPokemon(data);
+      })
+      .catch((err) => {
+        alert(err.message);
+        console.error(err);
+      });
+  } else {
+    alert('Pokémon not found');
+  }
+});
+});
+
+** end of undefined **
+
